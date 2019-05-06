@@ -7,7 +7,7 @@ package:
 
 source:
   url: http://hepmc.web.cern.ch/hepmc/releases/{{ name  }}-{{ version }}.tar.gz 
-  sha256: 2fcbc9964d6f9f7776289d65f9c73033f85c15bf5f0df00c429a6a1d8b8248bb
+  sha256: 46098a7e9717921e436c265836c914d515cb831dde898f3f1d129468df7982e7
   folder: source
 
 build:
