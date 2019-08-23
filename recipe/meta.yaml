@@ -1,5 +1,5 @@
 {% set name = "HepMC3" %}
-{% set version = "3.1.1" %}
+{% set version = "3.1.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: http://hepmc.web.cern.ch/hepmc/releases/{{ name  }}-{{ version }}.tar.gz 
-  sha256: 46098a7e9717921e436c265836c914d515cb831dde898f3f1d129468df7982e7
+  sha256: 9f4f99214535a764054cadae81f41483a426487c358fad991318b6398eefcd1f
   folder: source
 
 build:
@@ -31,7 +31,7 @@ test:
     - cd source/test
     - ${CXX} -std=c++11 testMass.cc -o testMass.exe -I${CONDA_PREFIX}/include -L${CONDA_PREFIX}/lib -lHepMC3
       # Fix up the runpath
-    - ${INSTALL_NAME_TOOL} -change @rpath/libHepMC3.1.dylib $CONDA_PREFIX/lib/libHepMC3.dylib testMass.exe  # [osx]
+    - ${INSTALL_NAME_TOOL} -change @rpath/libHepMC3.2.dylib $CONDA_PREFIX/lib/libHepMC3.dylib testMass.exe  # [osx]
     - ./testMass.exe
 
 about:
