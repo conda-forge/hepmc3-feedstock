@@ -39,9 +39,8 @@ test:
 
 about:
   home: https://hepmc.web.cern.ch/hepmc/
-  license: GPL-3
-  license_family: GPL
-  license_file: source/LICENCE
+  license: GPL-3.0-or-later
+  license_file: source/COPYING
   summary: HepMC3 is a new rewrite of HepMC event record.
   description: |
     HepMC3 is a new rewrite of HepMC event record. It uses shared pointers
