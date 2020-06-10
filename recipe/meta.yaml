@@ -1,13 +1,13 @@
 {% set name = "HepMC3" %}
-{% set version = "3.2.1" %}
+{% set version = "3.2.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: http://hepmc.web.cern.ch/hepmc/releases/{{ name  }}-{{ version }}.tar.gz
-  sha256: 07b4ce3fd96d8741bf6034e564dc4c6517449f23a33c9c50c5ec81dc6db9b300
+  url: http://hepmc.web.cern.ch/hepmc/releases/{{ name }}-{{ version }}.tar.gz
+  sha256: 7f2b29b3f18539f4ed9d590a1e5589d6f61eb5c5901263952a442d95136af6e6
   folder: source
 
 build:
@@ -39,9 +39,8 @@ test:
 
 about:
   home: https://hepmc.web.cern.ch/hepmc/
-  license: GPL-3
-  license_family: GPL
-  license_file: source/LICENCE
+  license: GPL-3.0-or-later
+  license_file: source/COPYING
   summary: HepMC3 is a new rewrite of HepMC event record.
   description: |
     HepMC3 is a new rewrite of HepMC event record. It uses shared pointers
