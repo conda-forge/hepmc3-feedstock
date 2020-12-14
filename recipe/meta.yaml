@@ -1,5 +1,5 @@
 {% set name = "HepMC3" %}
-{% set version = "3.2.2" %}
+{% set version = "3.2.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: http://hepmc.web.cern.ch/hepmc/releases/{{ name }}-{{ version }}.tar.gz
-  sha256: 7f2b29b3f18539f4ed9d590a1e5589d6f61eb5c5901263952a442d95136af6e6
+  sha256: 96cfdb72ac3704e696d324646a9114ce1883123c4b892c67eedc10d560266436
   folder: source
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
 
 requirements:
