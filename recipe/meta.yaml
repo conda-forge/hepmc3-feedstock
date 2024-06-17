@@ -1,5 +1,5 @@
 {% set name = "HepMC3" %}
-{% set version = "3.2.7" %}
+{% set version = "3.3.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: http://hepmc.web.cern.ch/hepmc/releases/{{ name }}-{{ version }}.tar.gz
-  sha256: 532c5387270dd55ff1e676e929a77c5910f2fba92fa62885b1f5ed0aef6fdde8
+  sha256: b8aac49db76f58c31f9ed77ef50e41f16f0d576eb0bfe226f68a9301a301ca38
   folder: source
 
 build:
@@ -17,10 +17,10 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ stdlib("c") }}
     - cmake
     - make
   run_constrained:
-    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx]
 
 test:
   source_files:
