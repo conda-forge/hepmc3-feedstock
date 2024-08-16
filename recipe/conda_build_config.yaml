@@ -1,2 +1,4 @@
-MACOSX_DEPLOYMENT_TARGET:  # [osx]
-  - 10.12                  # [osx]
+c_stdlib:
+  - macosx_deployment_target   # [osx]
+c_stdlib_version:              # [osx]
+  - 10.13                      # [osx]
