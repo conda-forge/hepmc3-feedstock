@@ -5,9 +5,9 @@ package:
   name: {{ name|lower }}
   version: {{ version }}
 
-source:
-  url: http://hepmc.web.cern.ch/hepmc/releases/{{ name }}-{{ version }}.tar.gz
-  sha256: 532c5387270dd55ff1e676e929a77c5910f2fba92fa62885b1f5ed0aef6fdde8
+source: 
+  url: https://hepmc.web.cern.ch/hepmc/releases/{{ name }}-{{ version }}.tar.gz 
+  sha256: 587faa6556cc54ccd89ad35421461b4761d7809bc17a2e72f5034daea142232b 
   folder: source
 
 build:
@@ -20,6 +20,9 @@ requirements:
     - {{ compiler('cxx') }}
     - cmake
     - make
+  host:
+    - zlib
+    - bzip2
 
 test:
   source_files:
