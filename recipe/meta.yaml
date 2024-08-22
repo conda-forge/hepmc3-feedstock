@@ -5,13 +5,16 @@ package:
   name: {{ name|lower }}
   version: {{ version }}
 
-source: 
-  url: https://hepmc.web.cern.ch/hepmc/releases/{{ name }}-{{ version }}.tar.gz 
-  sha256: 587faa6556cc54ccd89ad35421461b4761d7809bc17a2e72f5034daea142232b 
+source:
+  url: https://hepmc.web.cern.ch/hepmc/releases/{{ name }}-{{ version }}.tar.gz
+  sha256: 587faa6556cc54ccd89ad35421461b4761d7809bc17a2e72f5034daea142232b
   folder: source
+  patches:
+    # c.f. https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/360
+    - 0001-fallback-to-readlink-if-macOS-missing-greadlink.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
@@ -32,13 +35,15 @@ test:
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
   commands:
-    # Workaround for lack of CONDA_BUILD_SYSROOT variable in staged recipes
-    - export CONDA_BUILD_SYSROOT=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk  # [osx]
+
+    - HepMC3-config --prefix
+    - HepMC3-config --cxxflags
+    - HepMC3-config --ldflags
+    - HepMC3-config --libdir
+
     - cd source/test
-    - ${CXX} -std=c++11 testMass.cc -o testMass.exe -I${CONDA_PREFIX}/include -L${CONDA_PREFIX}/lib -lHepMC3
-      # Fix up the runpath
-    - ${INSTALL_NAME_TOOL} -change @rpath/libHepMC3.3.dylib $CONDA_PREFIX/lib/libHepMC3.dylib testMass.exe  # [osx]
-    - ./testMass.exe
+    - ${CXX} -std=c++11 testMass.cc -o testMass $(HepMC3-config --cxxflags --ldflags) -Wl,-rpath,"$(HepMC3-config --libdir)"
+    - ./testMass
 
 about:
   home: https://hepmc.web.cern.ch/hepmc/

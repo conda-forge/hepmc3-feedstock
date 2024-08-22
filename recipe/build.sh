@@ -4,13 +4,9 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-mkdir -p build
-cd build
-
 # ROOTIO is currently off, this could be added after ROOT adds a root-base formula
 
 cmake -LAH \
-    -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_BUILD_TYPE=${CMAKE_PLATFORM_FLAGS[@]+"${CMAKE_PLATFORM_FLAGS[@]}"} \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DHEPMC3_ENABLE_ROOTIO=OFF \
@@ -18,8 +14,9 @@ cmake -LAH \
     -DHEPMC3_BUILD_DOCS=ON \
     -DHEPMC3_BUILD_EXAMPLES=ON \
     -DHEPMC3_ENABLE_TEST=ON \
-    ../source
+    -S source \
+    -B build
 
-make -j${CPU_COUNT}
-make install
+cmake --build build --parallel "${CPU_COUNT}"
+cmake --install build
 ctest
