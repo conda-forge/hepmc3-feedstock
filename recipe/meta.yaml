@@ -24,8 +24,11 @@ requirements:
     - cmake
     - make
   host:
+    - python
     - zlib
     - bzip2
+  run:
+    - python
 
 test:
   source_files:
