@@ -1,5 +1,5 @@
 {% set name = "HepMC3" %}
-{% set version = "3.3.0" %}
+{% set version = "3.3.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,15 +7,11 @@ package:
 
 source:
   url: https://hepmc.web.cern.ch/hepmc/releases/{{ name }}-{{ version }}.tar.gz
-  sha256: 6f876091edcf7ee6d0c0db04e080056e89efc1a61abe62355d97ce8e735769d6
+  sha256: 08240160b0f28dc3293aa4d61ce65e2d67cd597acf6faca439f2e46625f7e793
   folder: source
-  patches:
-    # c.f. https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/360
-    - 0001-fallback-to-readlink-if-macOS-missing-greadlink.patch  # [osx]
-    - use-range-of-supported-cmake.patch
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win]
 
 requirements:
@@ -30,6 +26,7 @@ requirements:
     - python
     - zlib
     - bzip2
+    - zstd
   run:
     - python
 
