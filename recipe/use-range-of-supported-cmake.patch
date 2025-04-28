@@ -1,0 +1,94 @@
+From c66a62925b8a8347204967118fe59aa802220d70 Mon Sep 17 00:00:00 2001
+From: Matthew Feickert <matthew.feickert@cern.ch>
+Date: Sun, 27 Apr 2025 23:58:40 -0600
+Subject: [PATCH] MNT: Use range of supported CMake versions
+
+* Use modern CMake syntax to support a range of supported CMake version
+  policies in cmake_minimum_required.
+   - c.f. https://cmake.org/cmake/help/latest/command/cmake_minimum_required.html
+---
+ CMakeLists.txt                        | 2 +-
+ examples/BasicExamples/CMakeLists.txt | 2 +-
+ examples/CMakeLists.txt               | 2 +-
+ examples/SearchExample/CMakeLists.txt | 2 +-
+ python/CMakeLists.txt                 | 2 +-
+ test/CMakeLists.txt                   | 4 ++--
+ 6 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8de2c816..5c30debb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.1...3.31)
+ #----------------------------------------------------------------------------
+ project(HepMC3 LANGUAGES CXX)
+ set(PROJECT_VERSION 3.03.00)
+diff --git a/examples/BasicExamples/CMakeLists.txt b/examples/BasicExamples/CMakeLists.txt
+index e5f0e4ec..d918caa7 100644
+--- a/examples/BasicExamples/CMakeLists.txt
++++ b/examples/BasicExamples/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ # building tests
+ #------------------
+-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.1...3.31)
+ #
+ 
+ #---Add executables------------------------------------------------------------
+diff --git a/examples/CMakeLists.txt b/examples/CMakeLists.txt
+index 7ccb03fc..067d4d5c 100644
+--- a/examples/CMakeLists.txt
++++ b/examples/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ # building examples
+ #------------------
+-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.1...3.31)
+ include_directories(${PROJECT_SOURCE_DIR}/include )
+ 
+ 
+diff --git a/examples/SearchExample/CMakeLists.txt b/examples/SearchExample/CMakeLists.txt
+index 5852644c..ebdb730b 100644
+--- a/examples/SearchExample/CMakeLists.txt
++++ b/examples/SearchExample/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ # building tests
+ #------------------
+-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.1...3.31)
+ #
+ 
+ #---Add executables------------------------------------------------------------
+diff --git a/python/CMakeLists.txt b/python/CMakeLists.txt
+index 888e17a4..02cdadd7 100644
+--- a/python/CMakeLists.txt
++++ b/python/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ #project(pyHepMC3 CXX)
+ #Should be fixed
+-cmake_minimum_required(VERSION 3.5.0)
++cmake_minimum_required(VERSION 3.5...3.31)
+ if(${CMAKE_VERSION} VERSION_LESS "3.14.00")
+ SET_PROPERTY (GLOBAL PROPERTY CMAKE_ROLE "PROJECT")
+ endif()
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 0f6e50c7..61ef3fa5 100644
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -1,9 +1,9 @@
+ #Beacause of LZMA targets
+ if (HEPMC3_TEST_LZMA)
+-  cmake_minimum_required(VERSION 3.14.0 FATAL_ERROR)
++  cmake_minimum_required(VERSION 3.14...3.31)
+ endif()
+ if (HEPMC3_TEST_BZIP2)
+-  cmake_minimum_required(VERSION 3.12.0 FATAL_ERROR)
++  cmake_minimum_required(VERSION 3.12...3.31)
+ endif()
+ 
+ 
+-- 
+2.49.0
+

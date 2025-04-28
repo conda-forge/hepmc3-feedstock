@@ -12,9 +12,10 @@ source:
   patches:
     # c.f. https://gitlab.cern.ch/hepmc/HepMC3/-/merge_requests/360
     - 0001-fallback-to-readlink-if-macOS-missing-greadlink.patch  # [osx]
+    - use-range-of-supported-cmake.patch
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
 
 requirements:
