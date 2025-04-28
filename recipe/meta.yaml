@@ -26,6 +26,7 @@ requirements:
     - python
     - zlib
     - bzip2
+    - zstd
   run:
     - python
 
