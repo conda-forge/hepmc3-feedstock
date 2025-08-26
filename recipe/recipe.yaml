@@ -14,7 +14,7 @@ source:
   target_directory: source
 
 build:
-  number: 2
+  number: 3
   skip: win
 
 requirements:
