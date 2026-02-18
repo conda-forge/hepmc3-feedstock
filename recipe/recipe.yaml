@@ -12,6 +12,8 @@ source:
   url: https://hepmc.web.cern.ch/hepmc/releases/${{ name }}-${{ version }}.tar.gz
   sha256: 08240160b0f28dc3293aa4d61ce65e2d67cd597acf6faca439f2e46625f7e793
   target_directory: source
+  patches:
+    - 0001-Fix-cmake4-find_file.patch
 
 build:
   number: 4
