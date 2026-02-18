@@ -14,7 +14,7 @@ source:
   target_directory: source
 
 build:
-  number: 3
+  number: 4
   skip: win
 
 requirements:
@@ -22,10 +22,6 @@ requirements:
     - ${{ stdlib("c") }}
     - ${{ compiler('cxx') }}
     - cmake
-    - if: build_platform != target_platform
-      then:
-        - python
-        - cross-python_${{ target_platform }}
     - make
   host:
     - python
@@ -34,6 +30,8 @@ requirements:
     - zstd
   run:
     - python
+  run_exports:
+    - ${{ pin_subpackage(name, upper_bound='x.x') }}
 
 tests:
   - files:
