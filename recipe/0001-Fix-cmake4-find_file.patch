@@ -1,20 +1,9 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Chris Burr <christopher.burr@cern.ch>
-Date: Tue, 18 Feb 2026 00:00:00 +0000
-Subject: [PATCH] Fix find_file for CMake 4+
-
-CMake 4 requires PATHS keyword for search directories in find_file().
-Without it, the bare directory arguments are not used as search paths.
-
----
- test/CMakeLists.txt | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
 diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+index 57a74f5..6855b5b 100644
 --- a/test/CMakeLists.txt
 +++ b/test/CMakeLists.txt
-@@ -9,7 +9,7 @@
-
+@@ -9,7 +9,7 @@ endif()
+ 
  macro( hepmc_test testname )
    message( STATUS "HepMC3 test: building ${testname} for ${testname}" )
 -  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
@@ -22,3 +11,39 @@ diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
    ADD_EXECUTABLE(${testname} ${${testname}_source}   ${ARGN} )
    target_include_directories(${testname} BEFORE
    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+@@ -31,7 +31,7 @@ endmacro( hepmc_test )
+ 
+ macro( hepmc_unix_test testname )
+   message( STATUS "HepMC3 test: building UNIX test ${testname} " )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  find_file( ${testname}_source ${testname}.cc PATHS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
+   ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
+   target_include_directories(${testname} BEFORE
+   PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+@@ -57,7 +57,7 @@ endmacro( hepmc_unix_test )
+ 
+ macro( hepmc_root_test testname )
+   message( STATUS "HepMC3 test: building ROOT test ${testname} " )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  find_file( ${testname}_source ${testname}.cc PATHS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
+   ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
+   target_include_directories(${testname} BEFORE
+   PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+@@ -81,7 +81,7 @@ endmacro( hepmc_root_test )
+ 
+ macro( hepmc_protobuf_test testname )
+   message( STATUS "HepMC3 test: building protobuf test ${testname} " )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  find_file( ${testname}_source ${testname}.cc PATHS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
+   ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
+   target_include_directories(${testname} BEFORE
+   PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+@@ -369,7 +369,7 @@ endif()
+ 
+ macro( hepmc_convert_test testname )
+   message( STATUS "HepMC3 test: building Convert test ${testname} with HEPMC2" )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  find_file( ${testname}_source ${testname}.cc PATHS ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
+   message( STATUS "HepMC3 test: building Convert test ${testname} ${${testname}_source} with HEPMC2" )
+   ADD_EXECUTABLE(convert_${testname} ${${testname}_source}  ${ARGN} )
+   target_include_directories(convert_${testname} BEFORE
