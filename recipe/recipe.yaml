@@ -19,7 +19,7 @@ build:
   number: 4
   skip: win
   dynamic_linking:
-    overdepending_behavior: error
+    overdepending_behavior: ignore  # Ignore until python <=3.12 is dropped
     overlinking_behavior: error
 
 requirements:
