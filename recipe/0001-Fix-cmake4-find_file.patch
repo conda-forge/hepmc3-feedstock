@@ -1,9 +1,8 @@
 diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
-index 57a74f5..aaf9942 100644
 --- a/test/CMakeLists.txt
 +++ b/test/CMakeLists.txt
-@@ -9,7 +9,13 @@ endif()
- 
+@@ -9,7 +9,13 @@
+
  macro( hepmc_test testname )
    message( STATUS "HepMC3 test: building ${testname} for ${testname}" )
 -  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
@@ -17,8 +16,8 @@ index 57a74f5..aaf9942 100644
    ADD_EXECUTABLE(${testname} ${${testname}_source}   ${ARGN} )
    target_include_directories(${testname} BEFORE
    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-@@ -31,7 +37,13 @@ endmacro( hepmc_test )
- 
+@@ -31,7 +37,13 @@
+
  macro( hepmc_unix_test testname )
    message( STATUS "HepMC3 test: building UNIX test ${testname} " )
 -  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
@@ -32,8 +31,8 @@ index 57a74f5..aaf9942 100644
    ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
    target_include_directories(${testname} BEFORE
    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-@@ -57,7 +69,13 @@ endmacro( hepmc_unix_test )
- 
+@@ -57,7 +69,13 @@
+
  macro( hepmc_root_test testname )
    message( STATUS "HepMC3 test: building ROOT test ${testname} " )
 -  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
@@ -47,8 +46,8 @@ index 57a74f5..aaf9942 100644
    ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
    target_include_directories(${testname} BEFORE
    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-@@ -81,7 +99,13 @@ endmacro( hepmc_root_test )
- 
+@@ -81,7 +99,13 @@
+
  macro( hepmc_protobuf_test testname )
    message( STATUS "HepMC3 test: building protobuf test ${testname} " )
 -  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
@@ -62,8 +61,8 @@ index 57a74f5..aaf9942 100644
    ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
    target_include_directories(${testname} BEFORE
    PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-@@ -369,7 +393,13 @@ endif()
- 
+@@ -369,7 +393,13 @@
+
  macro( hepmc_convert_test testname )
    message( STATUS "HepMC3 test: building Convert test ${testname} with HEPMC2" )
 -  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
