@@ -12,20 +12,21 @@ source:
   url: https://hepmc.web.cern.ch/hepmc/releases/${{ name }}-${{ version }}.tar.gz
   sha256: 08240160b0f28dc3293aa4d61ce65e2d67cd597acf6faca439f2e46625f7e793
   target_directory: source
+  patches:
+    - 0001-Fix-cmake4-find_file.patch
 
 build:
-  number: 3
+  number: 4
   skip: win
+  dynamic_linking:
+    overdepending_behavior: ignore  # Ignore until python <=3.12 is dropped
+    overlinking_behavior: error
 
 requirements:
   build:
     - ${{ stdlib("c") }}
     - ${{ compiler('cxx') }}
     - cmake
-    - if: build_platform != target_platform
-      then:
-        - python
-        - cross-python_${{ target_platform }}
     - make
   host:
     - python
@@ -34,6 +35,13 @@ requirements:
     - zstd
   run:
     - python
+  run_exports:
+    - ${{ pin_subpackage(name|lower, upper_bound='x.x') }}
+  ignore_run_exports:
+    from_package:  # cmake looks for these but doesn't use them
+      - zlib
+      - bzip2
+      - zstd
 
 tests:
   - files:

@@ -1,0 +1,78 @@
+diff --git a/test/CMakeLists.txt b/test/CMakeLists.txt
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -9,7 +9,13 @@
+
+ macro( hepmc_test testname )
+   message( STATUS "HepMC3 test: building ${testname} for ${testname}" )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++  elseif(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++  else()
++    message(FATAL_ERROR "Cannot find source file ${testname}.cc")
++  endif()
+   ADD_EXECUTABLE(${testname} ${${testname}_source}   ${ARGN} )
+   target_include_directories(${testname} BEFORE
+   PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+@@ -31,7 +37,13 @@
+
+ macro( hepmc_unix_test testname )
+   message( STATUS "HepMC3 test: building UNIX test ${testname} " )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++  elseif(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++  else()
++    message(FATAL_ERROR "Cannot find source file ${testname}.cc")
++  endif()
+   ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
+   target_include_directories(${testname} BEFORE
+   PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+@@ -57,7 +69,13 @@
+
+ macro( hepmc_root_test testname )
+   message( STATUS "HepMC3 test: building ROOT test ${testname} " )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++  elseif(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++  else()
++    message(FATAL_ERROR "Cannot find source file ${testname}.cc")
++  endif()
+   ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
+   target_include_directories(${testname} BEFORE
+   PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+@@ -81,7 +99,13 @@
+
+ macro( hepmc_protobuf_test testname )
+   message( STATUS "HepMC3 test: building protobuf test ${testname} " )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++  elseif(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++  else()
++    message(FATAL_ERROR "Cannot find source file ${testname}.cc")
++  endif()
+   ADD_EXECUTABLE(${testname} ${${testname}_source}  ${ARGN} )
+   target_include_directories(${testname} BEFORE
+   PUBLIC  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+@@ -369,7 +393,13 @@
+
+ macro( hepmc_convert_test testname )
+   message( STATUS "HepMC3 test: building Convert test ${testname} with HEPMC2" )
+-  find_file( ${testname}_source ${testname}.cc ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} )
++  if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_SOURCE_DIR}/${testname}.cc)
++  elseif(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++    set(${testname}_source ${CMAKE_CURRENT_BINARY_DIR}/${testname}.cc)
++  else()
++    message(FATAL_ERROR "Cannot find source file ${testname}.cc")
++  endif()
+   message( STATUS "HepMC3 test: building Convert test ${testname} ${${testname}_source} with HEPMC2" )
+   ADD_EXECUTABLE(convert_${testname} ${${testname}_source}  ${ARGN} )
+   target_include_directories(convert_${testname} BEFORE
