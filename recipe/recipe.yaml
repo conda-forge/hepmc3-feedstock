@@ -1,22 +1,21 @@
 schema_version: 1
 
 context:
-  name: HepMC3
   version: 3.3.1
 
 package:
-  name: ${{ name|lower }}
+  name: "hepmc3"
   version: ${{ version }}
 
 source:
-  url: https://hepmc.web.cern.ch/hepmc/releases/${{ name }}-${{ version }}.tar.gz
+  url: https://hepmc.web.cern.ch/hepmc/releases/HepMC3-${{ version }}.tar.gz
   sha256: 08240160b0f28dc3293aa4d61ce65e2d67cd597acf6faca439f2e46625f7e793
   target_directory: source
   patches:
     - 0001-Fix-cmake4-find_file.patch
 
 build:
-  number: 4
+  number: 5
   skip: win
   dynamic_linking:
     overdepending_behavior: ignore  # Ignore until python <=3.12 is dropped
@@ -25,7 +24,7 @@ build:
 requirements:
   build:
     - ${{ stdlib("c") }}
-    - ${{ compiler('cxx') }}
+    - ${{ compiler("cxx") }}
     - cmake
     - make
   host:
@@ -36,7 +35,7 @@ requirements:
   run:
     - python
   run_exports:
-    - ${{ pin_subpackage(name|lower, upper_bound='x.x') }}
+    - ${{ pin_subpackage('hepmc3', upper_bound='x.x') }}
   ignore_run_exports:
     from_package:  # cmake looks for these but doesn't use them
       - zlib
@@ -49,15 +48,34 @@ tests:
         - source/test
     requirements:
       run:
-        - ${{ stdlib("c") }}
-        - ${{ compiler('cxx') }}
-        - ${{ compiler('fortran') }}
+        - cxx-compiler
     script:
+      - HepMC3-config --help
       - HepMC3-config --prefix
+      - HepMC3-config --includedir
+      - HepMC3-config --libdir
+      - HepMC3-config --interfacesdir
+      - HepMC3-config --cflags
       - HepMC3-config --cxxflags
       - HepMC3-config --ldflags
-      - HepMC3-config --libdir
+
+      - HepMC3-config --search
+      - HepMC3-config --features
+      - HepMC3-config --version
+
       - cd source/test
+      # The v2+ versions of conda-forge compiler metapackages install minimally
+      # activated compilers where the compiler toolchain works by explicit name
+      # but environmental variables like CXX are no longer set.
+      # c.f. https://github.com/conda-forge/conda-forge.github.io/issues/2595
+      - |-
+        if [[ -z "${CXX:-}" ]]; then
+            if [[ "$(uname)" == "Darwin" ]]; then
+                CXX="clang++"
+            else
+                CXX="g++"
+            fi
+        fi
       - "${CXX} -std=c++11 testMass.cc -o testMass $(HepMC3-config --cxxflags --ldflags) -Wl,-rpath,\"$(HepMC3-config --libdir)\""
       - ./testMass
 
