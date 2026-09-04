@@ -15,7 +15,7 @@ source:
     - 0001-Fix-cmake4-find_file.patch
 
 build:
-  number: 5
+  number: 6
   skip: win
   dynamic_linking:
     overdepending_behavior: ignore  # Ignore until python <=3.12 is dropped
